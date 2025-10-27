@@ -1,4 +1,3 @@
-
 Collection of reusable QML components for QuickShell. This repository currently contains a live GLSL shader compiler / watcher that can be embedded into QuickShell UIs to edit and reload shaders at runtime.
 
 ## Contents
@@ -14,7 +13,6 @@ Collection of reusable QML components for QuickShell. This repository currently 
 ## Overview
 
 <img width="1960" height="1303" alt="image" src="https://github.com/user-attachments/assets/094da5f0-12f3-43a3-b7fe-735f76943545" />
-
 
 The LiveShaderCompiler component makes it easy to work with vertex/fragment GLSL shaders inside a Quickshell-based shell. It provides:
 
@@ -46,6 +44,7 @@ Item {
         anchors.fill: parent
 
         LiveShaderCompiler {
+            // This can be wherever you want
             id: liveShaderCompiler
             targetShaderEffect: liveShader
             // OPTIONALS
@@ -55,23 +54,26 @@ Item {
         }
     }
     // OPTIONAL!
-    // This can be wherever you want,
-    // It connects to shader compiler signals and creates compilation related logs for you.
-    // It can also be used to track compiler states.
-    // Useful if you want to create your own shadertoy.
     LiveShaderConnector {
+        // This can be wherever you want,
         id: liveShaderConnector
         compiler: liveShaderCompiler
+        // It connects to shader compiler signals and creates compilation related logs for you.
+        // It can also be used to track compiler states.
+        // Useful if you want to create your own shadertoy.
+    }
+
+    Text {
+        // This is just an example
+        text: "Shader compiler status: " + liveShaderConnector.compileState
     }
 }
 ```
 
 Notes:
-- The component exposes signals `compiled` and `compileError` (or similarly named in
-	the QML source) — check the component file for the exact property/signal names. Use
-	them to surface errors to the UI or console.
-- When `LiveShaderWatcher` detects a change in a shader source it will ask the
-	`LiveShaderCompiler` to recompile and emit events you can react to.
+- The component exposes signals `compiled` and `compileError` (or similarly named in the QML source) — check the component file for the exact property/signal names. Usethem to surface errors to the UI or console.
+- When `LiveShaderWatcher` detects a change in a shader source it will ask the `LiveShaderCompiler` to recompile and emit events you can react to.
+- After you're done editing, you can completely remove the `LiveShaderCompiler` component from your shell and use the ShaderEffect normally.
 
 ## Usage
 1. Edit GLSL files under `LiveShaderCompiler/shader/` and save — the watcher should pick up changes and trigger recompilation. Obviously, the shader compiler component **MUST** be loaded in your shell while you are editing the shaders.
