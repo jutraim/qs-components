@@ -13,6 +13,9 @@ Collection of reusable QML components for QuickShell. This repository currently 
 
 ## Overview
 
+<img width="1960" height="1303" alt="image" src="https://github.com/user-attachments/assets/094da5f0-12f3-43a3-b7fe-735f76943545" />
+
+
 The LiveShaderCompiler component makes it easy to work with vertex/fragment GLSL shaders inside a Quickshell-based shell. It provides:
 
 - Live reloading of shader sources when files change on disk.
